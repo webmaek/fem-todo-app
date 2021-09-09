@@ -1,9 +1,23 @@
+const plugin = require('tailwindcss/plugin')
+
 module.exports = {
   mode: 'jit',
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class', // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Josefin Sans', 'sans-serif'],
+        serif: ['Josefin Sans', 'serif'],
+      },
+      colors: {
+        'fem-blue': 'hsl(235, 24%, 19%)',
+        'fem-dark-blue': 'hsl(235, 21%, 11%)',
+      },
+      backgroundImage: theme => ({
+        'desktop-light': `url('/images/bg-desktop-light.jpg')`,
+      }),
+    },
   },
   variants: {
     extend: {},
