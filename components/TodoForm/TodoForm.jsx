@@ -17,7 +17,7 @@ const TodoForm = ({ addTodo }) => {
       <input
         type='text'
         placeholder='Create a new todo...'
-        className='p-4 w-full rounded-md bg-white dark:bg-fem-blue'
+        className='p-4 w-full rounded-md bg-white dark:bg-fem-blue dark:text-white'
         value={text}
         onChange={event => setText(event.target.value)}
       />
