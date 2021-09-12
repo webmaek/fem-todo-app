@@ -3,11 +3,11 @@ import { useState } from 'react'
 const TodoItem = ({ id, text, completed, removeTodo, toggleTodo }) => {
   const [hovered, setHovered] = useState(false)
 
-  const handleMouseEnter = event => {
+  const handleMouseEnter = () => {
     setHovered(true)
   }
 
-  const handleMouseLeave = event => {
+  const handleMouseLeave = () => {
     setHovered(false)
   }
 
@@ -26,7 +26,9 @@ const TodoItem = ({ id, text, completed, removeTodo, toggleTodo }) => {
       <div className='w-full flex items-center justify-between'>
         <span
           className={`ml-4 font-light text-black dark:text-white ${
-            completed ? 'text-gray-400 line-through' : 'text-black'
+            completed
+              ? 'text-gray-400 dark:text-gray-500 line-through'
+              : 'text-black'
           }`}
         >
           {text}
