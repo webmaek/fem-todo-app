@@ -29,12 +29,19 @@ const useTodos = initialTodos => {
     setTodos(filteredTodos)
   }
 
+  const clearCompleted = () => {
+    const filteredTodos = todos.filter(todo => !todo.completed)
+
+    setTodos(filteredTodos)
+  }
+
   return {
     todos,
     setTodos,
     addTodo,
     toggleTodo,
     removeTodo,
+    clearCompleted,
   }
 }
 
