@@ -1,39 +1,39 @@
-import { v4 as uuid } from 'uuid'
+import { v4 as uuid } from "uuid";
 
-import { useLocalStorage } from './useLocalStorage'
+import { useLocalStorage } from "./useLocalStorage";
 
-const useTodos = initialTodos => {
+const useTodos = (initialTodos) => {
   const [todos, setTodos] = useLocalStorage(
-    'todos',
+    "todos",
     initialTodos ? initialTodos : []
-  )
+  );
 
-  const addTodo = text => {
-    setTodos([...todos, { id: uuid(), text, completed: false }])
-  }
+  const addTodo = (text) => {
+    setTodos([...todos, { id: uuid(), text, completed: false }]);
+  };
 
-  const toggleTodo = id => {
-    const updatedTodos = todos.map(todo => {
+  const toggleTodo = (id) => {
+    const updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
-        return { ...todo, completed: !todo.completed }
+        return { ...todo, completed: !todo.completed };
       }
-      return todo
-    })
+      return todo;
+    });
 
-    setTodos(updatedTodos)
-  }
+    setTodos(updatedTodos);
+  };
 
-  const removeTodo = id => {
-    const filteredTodos = todos.filter(todo => todo.id !== id)
+  const removeTodo = (id) => {
+    const filteredTodos = todos.filter((todo) => todo.id !== id);
 
-    setTodos(filteredTodos)
-  }
+    setTodos(filteredTodos);
+  };
 
   const clearCompleted = () => {
-    const filteredTodos = todos.filter(todo => !todo.completed)
+    const filteredTodos = todos.filter((todo) => !todo.completed);
 
-    setTodos(filteredTodos)
-  }
+    setTodos(filteredTodos);
+  };
 
   return {
     todos,
@@ -42,7 +42,7 @@ const useTodos = initialTodos => {
     toggleTodo,
     removeTodo,
     clearCompleted,
-  }
-}
+  };
+};
 
-export { useTodos }
+export { useTodos };
