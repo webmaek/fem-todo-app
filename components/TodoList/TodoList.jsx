@@ -1,6 +1,5 @@
-import React from 'react'
-import TodoItem from '../TodoItem/TodoItem'
-import TodoFooter from '../TodoFooter/TodoFooter'
+import TodoItem from "../TodoItem/TodoItem";
+import TodoFooter from "../TodoFooter/TodoFooter";
 
 const TodoList = ({
   todos,
@@ -13,8 +12,8 @@ const TodoList = ({
   clearCompleted,
 }) => {
   return (
-    <ul className='bg-white rounded-md dark:bg-fem-blue divide-y divide-gray-300 dark:divide-gray-500'>
-      {todos.map(todo => {
+    <ul className="bg-white rounded-md dark:bg-fem-blue divide-y divide-gray-300 dark:divide-gray-500">
+      {todos.map((todo) => {
         if (showCompleted) {
           if (todo.completed) {
             return (
@@ -24,7 +23,7 @@ const TodoList = ({
                 removeTodo={removeTodo}
                 toggleTodo={toggleTodo}
               />
-            )
+            );
           }
         }
 
@@ -37,8 +36,8 @@ const TodoList = ({
                 removeTodo={removeTodo}
                 toggleTodo={toggleTodo}
               />
-            )
-          } else return null
+            );
+          } else return null;
         }
 
         if (!showCompleted && !showCompleted) {
@@ -49,7 +48,7 @@ const TodoList = ({
               removeTodo={removeTodo}
               toggleTodo={toggleTodo}
             />
-          )
+          );
         }
       })}
       <TodoFooter
@@ -59,7 +58,7 @@ const TodoList = ({
         todosLength={todos.length}
       />
     </ul>
-  )
-}
+  );
+};
 
-export default TodoList
+export default TodoList;
