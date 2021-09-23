@@ -1,8 +1,8 @@
 # FEM Todo App
 
-Todo app based on [Frontend Mentor Challenge]('https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW')
+Todo app based on [Frontend Mentor Challenge](https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW)
 
-[Live Demo]('https://webmaek-fem-todo-app.netlify.app/')
+[Live Demo](https://webmaek-fem-todo-app.netlify.app/)
 
 ## About
 
