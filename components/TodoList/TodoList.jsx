@@ -1,63 +1,59 @@
 import TodoItem from "../TodoItem/TodoItem";
-import TodoFooter from "../TodoFooter/TodoFooter";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useTodoContext } from "../../contexts/TodoContext";
 
-const TodoList = ({
-  todos,
-  removeTodo,
-  toggleTodo,
-  showActive,
-  showCompleted,
-  setShowActive,
-  setShowCompleted,
-  clearCompleted,
-}) => {
+const TodoList = () => {
+  const { todos, setTodos, removeTodo, toggleTodo, showActive, showCompleted } =
+    useTodoContext();
+
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return;
+    const items = Array.from(todos);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setTodos(items);
+  };
+
   return (
-    <ul className="bg-white rounded-md dark:bg-fem-blue divide-y divide-gray-300 dark:divide-gray-500">
-      {todos.map((todo) => {
-        if (showCompleted) {
-          if (todo.completed) {
-            return (
-              <TodoItem
-                key={todo.id}
-                {...todo}
-                removeTodo={removeTodo}
-                toggleTodo={toggleTodo}
-              />
-            );
-          }
-        }
+    <DragDropContext onDragEnd={handleOnDragEnd}>
+      <Droppable droppableId="todos">
+        {(provided) => (
+          <ul
+            className="relative bg-white dark:bg-fem-blue divide-y divide-gray-300 dark:divide-gray-500 shadow-xl rounded-t-md"
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {todos
+              .filter((todo) => {
+                if (showActive) {
+                  return !todo.completed;
+                }
 
-        if (showActive) {
-          if (!todo.completed) {
-            return (
-              <TodoItem
-                key={todo.id}
-                {...todo}
-                removeTodo={removeTodo}
-                toggleTodo={toggleTodo}
-              />
-            );
-          } else return null;
-        }
+                if (showCompleted) {
+                  return todo.completed;
+                }
 
-        if (!showCompleted && !showCompleted) {
-          return (
-            <TodoItem
-              key={todo.id}
-              {...todo}
-              removeTodo={removeTodo}
-              toggleTodo={toggleTodo}
-            />
-          );
-        }
-      })}
-      <TodoFooter
-        setShowActive={setShowActive}
-        setShowCompleted={setShowCompleted}
-        clearCompleted={clearCompleted}
-        todosLength={todos.length}
-      />
-    </ul>
+                return todo;
+              })
+              .map((todo, index) => (
+                <Draggable key={todo.id} draggableId={todo.id} index={index}>
+                  {(provided) => (
+                    <TodoItem
+                      innerRef={provided.innerRef}
+                      provided={provided}
+                      {...todo}
+                      removeTodo={removeTodo}
+                      toggleTodo={toggleTodo}
+                    />
+                  )}
+                </Draggable>
+              ))}
+            {provided.placeholder}
+          </ul>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
 
