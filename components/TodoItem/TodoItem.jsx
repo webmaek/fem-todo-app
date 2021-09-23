@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useTodoContext } from "../../contexts/TodoContext";
 
-const TodoItem = ({ id, text, completed, removeTodo, toggleTodo }) => {
+const TodoItem = ({ id, text, completed, innerRef, provided }) => {
   const [hovered, setHovered] = useState(false);
+  const { toggleTodo, removeTodo } = useTodoContext();
 
   const handleMouseEnter = () => {
     setHovered(true);
@@ -11,29 +13,29 @@ const TodoItem = ({ id, text, completed, removeTodo, toggleTodo }) => {
     setHovered(false);
   };
 
-  const handleClick = () => {
-    console.log("hello world");
-  };
-
   return (
     <li
+      ref={innerRef}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
       className="p-4 flex items-center"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={handleClick}
     >
       <input
         type="checkbox"
-        className="appearance-none border-green-300 p-2 border-2 rounded-full"
+        className={`appearance-none border-green-300 p-2 border-2 rounded-full ${
+          completed && "bg-green-300"
+        }`}
         checked={completed}
         onChange={() => toggleTodo(id)}
       />
       <div className="w-full flex items-center justify-between">
         <span
-          className={`ml-4 font-light text-black dark:text-white ${
+          className={`ml-4 ${
             completed
               ? "text-gray-400 dark:text-gray-500 line-through"
-              : "text-black"
+              : "text-black dark:text-white"
           }`}
         >
           {text}
